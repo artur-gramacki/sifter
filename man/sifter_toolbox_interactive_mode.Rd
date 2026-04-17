@@ -2,7 +2,7 @@
 % Please edit documentation in R/sifter_toolbox_interactive_mode.R
 \name{sifter_toolbox_interactive_mode}
 \alias{sifter_toolbox_interactive_mode}
-\title{The function for automatic sifter() function calling in a loop}
+\title{A wrapper for the sifter_toolbox() function}
 \usage{
 sifter_toolbox_interactive_mode(
   data_main,
@@ -10,7 +10,6 @@ sifter_toolbox_interactive_mode(
   class_col,
   internal_number_col,
   num_of_classes = NULL,
-  cutting_at_height = NULL,
   class_to_highlight = NULL,
   labels_cex = 0.7,
   mai_bottom = 1.5,
@@ -32,8 +31,6 @@ sifter_toolbox_interactive_mode(
 
 \item{num_of_classes}{TODO}
 
-\item{cutting_at_height}{TODO}
-
 \item{class_to_highlight}{TODO}
 
 \item{labels_cex}{TODO}
@@ -54,23 +51,25 @@ sifter_toolbox_interactive_mode(
 TODO
 }
 \description{
-The function for automatic sifter() function calling in a loop
+A wrapper for the sifter_toolbox() function
 }
 \examples{
-file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
-file_toy_artefacts <- system.file("extdata", "toy_example_artefacts.csv", package = "sifter")
+if (interactive()) {
+  file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
+  file_toy_artefacts <- system.file("extdata", "toy_example_artefacts.csv", package = "sifter")
 
-data <- read.csv(file = file_toy, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
-data_artefact <- read.csv(file = file_toy_artefacts, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
+  data <- read.csv(file = file_toy, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
+  data_artefact <- read.csv(file = file_toy_artefacts, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
 
-sifter_toolbox_interactive_mode(
-  data_main = data,
-  data_art = data_artefact[2,],
-  class_col = 5,
-  internal_number_col = 6,
-  num_of_classes = 2,
-  dir = "sifter_results",
-  save_2D = FALSE
-)
+  sifter_toolbox_interactive_mode(
+    data_main = data,
+    data_art = data_artefact[2,],
+    class_col = 5,
+    internal_number_col = 6,
+    num_of_classes = 2,
+    dir = "sifter_results",
+    save_2D = FALSE
+  )
+}
 
 }

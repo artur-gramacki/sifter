@@ -2,7 +2,7 @@
 % Please edit documentation in R/sifter.R
 \name{sifter}
 \alias{sifter}
-\title{The main function for sifting algorithm (generating a series of AHC trees)}
+\title{The main function for sifting algorithm which generats a series of Agglomerative Hierarchical Clustering (AHC)trees}
 \usage{
 sifter(
   data_main,
@@ -51,7 +51,7 @@ sifter(
 TODO
 }
 \description{
-The main function for sifting algorithm (generating a series of AHC trees)
+The main function for sifting algorithm which generats a series of Agglomerative Hierarchical Clustering (AHC)trees
 }
 \examples{
 file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
@@ -61,10 +61,35 @@ data <- read.csv(file = file_toy, dec = ".", sep = "\t", header = T, stringsAsFa
 data_artefact <- read.csv(file = file_toy_artefacts, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
 
 out <- sifter(
-data_main = data,
-class_col = 5,
-internal_number_col = 6,
-verbose = TRUE
+  data_main = data,
+  class_col = 5,
+  internal_number_col = 6,
+  verbose = TRUE
+)
+
+out <- sifter(
+  data_main = data,
+  class_col = 5,
+  internal_number_col = 6,
+  num_of_classes = 2,
+  verbose = TRUE
+)
+
+out <- sifter(
+  data_main = data,
+  class_col = 5,
+  internal_number_col = 6,
+  cutting_at_height = 8,
+  verbose = TRUE
+)
+
+out <- sifter(
+  data_main = data,
+  data_art = data_artefact[2,],
+  class_col = 5,
+  internal_number_col = 6,
+  cutting_at_height = 8,
+  verbose = TRUE
 )
 
 }

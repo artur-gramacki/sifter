@@ -2,7 +2,7 @@
 % Please edit documentation in R/sifter_toolbox.R
 \name{sifter_toolbox}
 \alias{sifter_toolbox}
-\title{The function for automatic sifter() function calling in a loop}
+\title{A helper function that automatically calls sifter() function in a loop}
 \usage{
 sifter_toolbox(
   data_main,
@@ -48,7 +48,7 @@ sifter_toolbox(
 TODO
 }
 \description{
-The function for automatic sifter() function calling in a loop
+A helper function that automatically calls sifter() function in a loop
 }
 \examples{
 file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
