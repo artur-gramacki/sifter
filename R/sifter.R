@@ -22,7 +22,7 @@
 #'
 #' @param dist_method One of these: \code{"euclidean"}, \code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"} or \code{"minkowski"}.
 #'
-#' @param aggl_method  For \code{clust_algo == "hc"} - \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"}, \code{"centroid"}.For \code{clust_algo == "agnes"} - \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"weighted"}, \code{"flexible"}, \code{"gaverage"}.
+#' @param aggl_method  For \code{(clust_algo == "hc")} the acceptable values are: \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"}, \code{"centroid"}.For \code{(clust_algo == "agnes")} the acceptable values are:  \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"weighted"}, \code{"flexible"}, \code{"gaverage"}.
 #'
 #' @param plot_2D If \code{TRUE} 2D cluster plot  will be displayed on the screen.
 #'
