@@ -20,29 +20,29 @@ sifter_toolbox(
 )
 }
 \arguments{
-\item{data_main}{TODO}
+\item{data_main}{Same as in \code{sifter()} function.}
 
-\item{data_art}{TODO}
+\item{data_art}{Same as in \code{sifter()} function.}
 
-\item{class_col}{TODO}
+\item{class_col}{Same as in \code{sifter()} function.}
 
-\item{internal_number_col}{TODO}
+\item{internal_number_col}{Same as in \code{sifter()} function.}
 
-\item{num_of_classes}{TODO}
+\item{num_of_classes}{Same as in \code{sifter()} function.}
 
-\item{labels_cex}{TODO}
+\item{labels_cex}{Same as in \code{sifter()} function.}
 
-\item{mai_bottom}{TODO}
+\item{mai_bottom}{Same as in \code{sifter()} function.}
 
-\item{clust_algo}{TODO}
+\item{clust_algo}{Same as in \code{sifter()} function.}
 
-\item{dist_method}{TODO}
+\item{dist_method}{Same as in \code{sifter()} function.}
 
-\item{aggl_method}{TODO}
+\item{aggl_method}{Same as in \code{sifter()} function.}
 
-\item{dir}{TODO}
+\item{dir}{The directory where the results will be saved. If the directory does not exist, it is first created.}
 
-\item{save_2D}{TODO}
+\item{save_2D}{Logical. If \code{TRUE}, the 2D cluster plot is saved to disk as a \code{png} file.}
 }
 \value{
 TODO

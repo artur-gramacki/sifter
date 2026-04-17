@@ -21,31 +21,31 @@ sifter(
 )
 }
 \arguments{
-\item{data_main}{TODO}
+\item{data_main}{Input data. See \code{"toy_example.csv"} file available through the \code{system.file()} function.}
 
-\item{data_art}{TODO}
+\item{data_art}{Input data with artefacts. See \code{"toy_example_artefacts.csv"} file available through the \code{system.file()} function.}
 
-\item{class_col}{TODO}
+\item{class_col}{The column number in the input data that contains the class identifier.}
 
-\item{internal_number_col}{TODO}
+\item{internal_number_col}{The column number in the input data that contains unique IDs for each record.}
 
-\item{num_of_classes}{TODO}
+\item{num_of_classes}{The number of classes into which the tree should be divided.}
 
-\item{cutting_at_height}{TODO}
+\item{cutting_at_height}{The height at which the tree is cut.}
 
-\item{labels_cex}{TODO}
+\item{labels_cex}{\code{cex} param for tree leaves/}
 
-\item{mai_bottom}{TODO}
+\item{mai_bottom}{\code{mai} bottom param. Used when leaf labels are long and may not fit entirely in the plot.}
 
-\item{clust_algo}{TODO}
+\item{clust_algo}{One of these: \code{"hc"} - the standard hierarchical clustering, \code{"agnes"} - an enhanced agglomerative hierarchical clustering algorithm, \code{"diana"} - a divisive (top-down) hierarchical clustering algorithm.}
 
-\item{dist_method}{TODO}
+\item{dist_method}{One of these: \code{"euclidean"}, \code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"} or \code{"minkowski"}.}
 
-\item{aggl_method}{TODO}
+\item{aggl_method}{For \code{clust_algo == "hc"} - \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"}, \code{"centroid"}.For \code{clust_algo == "agnes"} - \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"weighted"}, \code{"flexible"}, \code{"gaverage"}.}
 
-\item{plot_2D}{TODO}
+\item{plot_2D}{If \code{TRUE} 2D cluster plot  will be displayed on the screen.}
 
-\item{verbose}{TODO}
+\item{verbose}{If \code{TRUE} results will be displayed on the screen (AHC tree and 2D cluster plot).}
 }
 \value{
 TODO
