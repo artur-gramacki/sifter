@@ -16,7 +16,7 @@ sifter(
   clust_algo = "hc",
   dist_method = "euclidean",
   aggl_method = "ward",
-  plot_2D = TRUE,
+  plot_2D = FALSE,
   verbose = TRUE
 )
 }
@@ -68,6 +68,8 @@ data <- read.csv(
   stringsAsFactors = TRUE
 )
 
+
+
 data_artefact <- read.csv(
   file = file_toy_artefacts,
   dec = ".",
@@ -107,5 +109,16 @@ out <- sifter(
   internal_number_col = 6,
   cutting_at_height = 8
 )
+
+# Tree and 2D cluster plot.
+out <- sifter(
+  data_main = data,
+  class_col = 5,
+  internal_number_col = 6,
+  num_of_classes = 2,
+  data_art = data_artefact[2,],
+  plot_2D = TRUE
+)
+
 
 }

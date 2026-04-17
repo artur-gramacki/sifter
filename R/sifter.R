@@ -16,16 +16,15 @@
 #' @param plot_2D TODO
 #' @param verbose TODO
 #'
-#' @importFrom dendextend rect.dendrogram cutree labels_colors set
+#' @importFrom dendextend labels_colors rect.dendrogram cutree set
 #' @importFrom RColorBrewer brewer.pal
 #' @importFrom factoextra fviz_cluster
 #' @importFrom cluster agnes diana
 #' @importFrom grDevices colorRampPalette dev.copy
-#' @importFrom stats dist hclust as.dendrogram order.dendrogram
 #' @importFrom ggplot2 geom_text geom_point aes
 #' @importFrom graphics abline par
 #' @importFrom utils write.table
-#' @importFrom base labels
+#' @importFrom stats dist hclust as.dendrogram order.dendrogram
 #'
 #' @return  TODO
 #' @export
@@ -44,6 +43,8 @@
 #'   header = TRUE,
 #'   stringsAsFactors = TRUE
 #' )
+#'
+#'
 #'
 #' data_artefact <- read.csv(
 #'   file = file_toy_artefacts,
@@ -85,6 +86,17 @@
 #'   cutting_at_height = 8
 #' )
 #'
+#' # Tree and 2D cluster plot.
+#' out <- sifter(
+#'   data_main = data,
+#'   class_col = 5,
+#'   internal_number_col = 6,
+#'   num_of_classes = 2,
+#'   data_art = data_artefact[2,],
+#'   plot_2D = TRUE
+#' )
+#'
+#'
 sifter <- function(
     data_main,
     data_art = NULL,
@@ -97,7 +109,7 @@ sifter <- function(
     clust_algo = "hc",
     dist_method = "euclidean",
     aggl_method = "ward",
-    plot_2D = TRUE,
+    plot_2D = FALSE,
     verbose = TRUE
 )
 {
@@ -252,7 +264,7 @@ sifter <- function(
 
   final_colors <- colors[colors_to_use]
   final_colors[artefact_position_in_tree] <- "black"
-  labels_colors(dend) <- final_colors
+  dendextend::labels_colors(dend) <- final_colors
   labs_cex[artefact_position_in_tree] <- labels_cex + 0.2
 
   # new labels
@@ -264,7 +276,15 @@ sifter <- function(
 
   # After this step, the leaf node labels are modified (class names are added)
   # plot(dend) to see the effect
-  base::labels(dend) <- my_labels
+
+  ### NOTE ###
+  # When it was like below (commented), CRAN test generates the following error:
+  # Error in labels(dend) <- my_labels : could not find function "labels<-"
+  # labels(dend) <- my_labels
+  #
+  # This works without CRAN error
+  dend <- dendextend::set(dend, "labels", my_labels)
+
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   # step 7 ----
@@ -290,7 +310,7 @@ sifter <- function(
     xx <- cluster_plot@data$x
     yy <- cluster_plot@data$y
 
-    cluster_plot + geom_text(aes(x = xx, y = yy, label = data[, internal_number_col]),
+    cluster_plot <- cluster_plot + geom_text(aes(x = xx, y = yy, label = data[, internal_number_col]),
                              size = 3, col = "black",  vjust = -0.8) +
     # highlight artifact (different color and bigger in size)
     geom_text(x = xx[artefact_row],

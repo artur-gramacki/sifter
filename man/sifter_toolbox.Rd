@@ -51,6 +51,7 @@ TODO
 A helper function that automatically calls sifter() function in a loop
 }
 \examples{
+if (interactive()) {
 file_toy <- system.file(
  "extdata", "toy_example.csv", package = "sifter")
 
@@ -82,5 +83,6 @@ sifter_toolbox(
   dir = "sifter_results",
   save_2D = TRUE
 )
+}
 
 }
