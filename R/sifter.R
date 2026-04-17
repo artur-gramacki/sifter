@@ -44,8 +44,6 @@
 #'   stringsAsFactors = TRUE
 #' )
 #'
-#'
-#'
 #' data_artefact <- read.csv(
 #'   file = file_toy_artefacts,
 #'   dec = ".",
@@ -53,6 +51,9 @@
 #'   header = TRUE,
 #'   stringsAsFactors = TRUE
 #' )
+#'
+#' print(data)
+#' print(data_artefact)
 #'
 #' # Only the required parameters.
 #' out <- sifter(
