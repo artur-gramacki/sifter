@@ -2,7 +2,7 @@
 % Please edit documentation in R/sifter.R
 \name{sifter}
 \alias{sifter}
-\title{The main function for sifting algorithm which generats a series of Agglomerative Hierarchical Clustering (AHC)trees}
+\title{The main function for sifting algorithm}
 \usage{
 sifter(
   data_main,
@@ -51,14 +51,30 @@ sifter(
 TODO
 }
 \description{
-The main function for sifting algorithm which generats a series of Agglomerative Hierarchical Clustering (AHC)trees
+The function generates a series of Agglomerative Hierarchical Clustering (AHC) trees.
 }
 \examples{
-file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
-file_toy_artefacts <- system.file("extdata", "toy_example_artefacts.csv", package = "sifter")
+file_toy <- system.file(
+ "extdata", "toy_example.csv", package = "sifter")
 
-data <- read.csv(file = file_toy, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
-data_artefact <- read.csv(file = file_toy_artefacts, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
+file_toy_artefacts <- system.file(
+  "extdata", "toy_example_artefacts.csv", package = "sifter")
+
+data <- read.csv(
+  file = file_toy,
+  dec = ".",
+  sep = "\t",
+  header = TRUE,
+  stringsAsFactors = TRUE
+)
+
+data_artefact <- read.csv(
+  file = file_toy_artefacts,
+  dec = ".",
+  sep = "\t",
+  header = TRUE,
+  stringsAsFactors = TRUE
+)
 
 # Only the required parameters.
 out <- sifter(

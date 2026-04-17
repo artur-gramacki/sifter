@@ -1,4 +1,6 @@
-#' The main function for sifting algorithm which generats a series of Agglomerative Hierarchical Clustering (AHC)trees
+#' The main function for sifting algorithm
+#'
+#' The function generates a series of Agglomerative Hierarchical Clustering (AHC) trees.
 #'
 #' @param data_main TODO
 #' @param data_art TODO
@@ -14,15 +16,42 @@
 #' @param plot_2D TODO
 #' @param verbose TODO
 #'
+#' @importFrom dendextend rect.dendrogram cutree labels_colors set
+#' @importFrom RColorBrewer brewer.pal
+#' @importFrom factoextra fviz_cluster
+#' @importFrom cluster agnes diana
+#' @importFrom grDevices colorRampPalette dev.copy
+#' @importFrom stats dist hclust as.dendrogram order.dendrogram
+#' @importFrom ggplot2 geom_text geom_point aes
+#' @importFrom graphics abline par
+#' @importFrom utils write.table
+#' @importFrom base labels
+#'
 #' @return  TODO
 #' @export
 #'
 #' @examples
-#' file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
-#' file_toy_artefacts <- system.file("extdata", "toy_example_artefacts.csv", package = "sifter")
+#' file_toy <- system.file(
+#'  "extdata", "toy_example.csv", package = "sifter")
 #'
-#' data <- read.csv(file = file_toy, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
-#' data_artefact <- read.csv(file = file_toy_artefacts, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
+#' file_toy_artefacts <- system.file(
+#'   "extdata", "toy_example_artefacts.csv", package = "sifter")
+#'
+#' data <- read.csv(
+#'   file = file_toy,
+#'   dec = ".",
+#'   sep = "\t",
+#'   header = TRUE,
+#'   stringsAsFactors = TRUE
+#' )
+#'
+#' data_artefact <- read.csv(
+#'   file = file_toy_artefacts,
+#'   dec = ".",
+#'   sep = "\t",
+#'   header = TRUE,
+#'   stringsAsFactors = TRUE
+#' )
 #'
 #' # Only the required parameters.
 #' out <- sifter(
@@ -72,16 +101,6 @@ sifter <- function(
     verbose = TRUE
 )
 {
-
-  package_not_exist <- FALSE
-  out <- require(dendextend); if (!out) package_not_exist = TRUE
-  out <- require(RColorBrewer); if (!out) package_not_exist = TRUE
-  out <- require(factoextra); if (!out) package_not_exist = TRUE
-  out <- require(cluster); if (!out) package_not_exist = TRUE
-
-  if(package_not_exist) {
-    stop("The following packages are required: dendextend, RColorBrewer, factoextra, cluster")
-  }
 
   # All columns outside the range c(1:internal_number_col) are ignored.
   data_main <- data_main[, c(1:internal_number_col)]
@@ -157,9 +176,9 @@ sifter <- function(
     if (aggl_method == "ward") aggl_method = "ward.D2"
     hc <- stats::hclust(dd, method = aggl_method)
   } else if (clust_algo == "agnes") {
-    hc <- agnes(dd, method = aggl_method)
+    hc <- cluster::agnes(dd, method = aggl_method)
   } else if (clust_algo == "diana") {
-    hc <- diana(dd)
+    hc <- cluster::diana(dd)
   } else {
     stop("Unknown clustering algorithm. Supported ones: 'hc', 'diana', 'agnes'.")
   }
@@ -223,9 +242,9 @@ sifter <- function(
 
   len <- length(unique(colors_to_use))
   if (len > 12) {
-    colors.12 <- brewer.pal(n = 12, name = 'Paired')
+    colors.12 <- RColorBrewer::brewer.pal(n = 12, name = 'Paired')
     # Interpolate to have more colors
-    colors <- colorRampPalette(colors.12)(len)
+    colors <- grDevices::colorRampPalette(colors.12)(len)
   } else {
     colors <- c("red", "blue", "green", "brown", "tomato1", "seagreen", "brown2",
                 "deeppink", "blueviolet", "orange2", "wheat", "orchid4")
@@ -245,7 +264,7 @@ sifter <- function(
 
   # After this step, the leaf node labels are modified (class names are added)
   # plot(dend) to see the effect
-  labels(dend) <- my_labels
+  base::labels(dend) <- my_labels
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   # step 7 ----

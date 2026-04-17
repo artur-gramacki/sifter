@@ -18,12 +18,17 @@ Authors@R: c(
     email = "j.gramacki@gmail.com")  
   )
 Maintainer: Artur Gramacki <a.gramacki@gmail.com>
-Description: TODO
+Description: Implementation of the sifting algorithm which generates a series of Agglomerative Hierarchical Clustering (AHC) trees.
 Imports: 
   dendextend,
   RColorBrewer,
   factoextra,
-  cluster
+  cluster,
+  grDevices,
+  stats,
+  ggplot2,
+  graphics,
+  utils
 Suggests: 
   knitr,
   rmarkdown,

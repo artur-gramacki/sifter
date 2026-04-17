@@ -13,15 +13,33 @@
 #' @param dir TODO
 #' @param save_2D TODO
 #'
+#' @importFrom grDevices graphics.off dev.off png
+#'
 #' @return TODO
 #' @export
 #'
 #' @examples
-#' file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
-#' file_toy_artefacts <- system.file("extdata", "toy_example_artefacts.csv", package = "sifter")
+#' file_toy <- system.file(
+#'  "extdata", "toy_example.csv", package = "sifter")
 #'
-#' data <- read.csv(file = file_toy, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
-#' data_artefact <- read.csv(file = file_toy_artefacts, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
+#' file_toy_artefacts <- system.file(
+#'   "extdata", "toy_example_artefacts.csv", package = "sifter")
+#'
+#' data <- read.csv(
+#'   file = file_toy,
+#'   dec = ".",
+#'   sep = "\t",
+#'   header = TRUE,
+#'   stringsAsFactors = TRUE
+#' )
+#'
+#' data_artefact <- read.csv(
+#'   file = file_toy_artefacts,
+#'   dec = ".",
+#'   sep = "\t",
+#'   header = TRUE,
+#'   stringsAsFactors = TRUE
+#' )
 #'
 #' sifter_toolbox(
 #'   data_main = data,
@@ -62,9 +80,9 @@ sifter_toolbox <- function(
     "/artefact_obs_No_",
     art_no,
     "_fig_01",
-    ".jpeg",
+    ".png",
     sep = "")
-  jpeg(fig_name, width = 1800, height = 1000, pointsize = 18)
+  png(fig_name, width = 1800, height = 1000, pointsize = 18)
   out <- sifter(
     data_main = data_main,
     data_art = data_art,
@@ -86,9 +104,9 @@ sifter_toolbox <- function(
       "/artefact_obs_No_",
       art_no,
       "_fig_01_2Dmap",
-      ".jpeg",
+      ".png",
       sep = "")
-    jpeg(fig_name, width = 800, height = 800, pointsize = 18)
+    png(fig_name, width = 800, height = 800, pointsize = 18)
     print(out$cluster_plot)
     dev.off()
   }
@@ -134,9 +152,9 @@ sifter_toolbox <- function(
       "/artefact_obs_No_",
       art_no, "_fig_",
       formatC(i, width = 2, format = "d", flag = "0"),
-      ".jpeg",
+      ".png",
       sep = "")
-    jpeg(fig_name, width = 1800, height = 1000, pointsize = 18)
+    png(fig_name, width = 1800, height = 1000, pointsize = 18)
     out <- sifter(
       data_main = data_main_2,
       data_art = data_art_2,
@@ -159,9 +177,9 @@ sifter_toolbox <- function(
         art_no, "_fig_",
         formatC(i, width = 2, format = "d", flag = "0"),
         "_2Dmap",
-        ".jpeg",
+        ".png",
         sep = "")
-      jpeg(fig_name, width = 800, height = 800, pointsize = 18)
+      png(fig_name, width = 800, height = 800, pointsize = 18)
       print(out$cluster_plot)
       dev.off()
     }

@@ -1,0 +1,59 @@
+---
+title: "Introduction to `sifter` package"
+author: "authors: Artur Gramacki & Jarosław Gramacki"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: true  
+    fig_caption: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to `sift` package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style>
+
+body {
+  background-color: #ffffff;
+}
+
+pre {
+  border: 1px solid #3b82f6;
+  border-radius: 6px;
+}
+
+h1, h2, h3, h4 {
+  border-bottom: none;
+}
+
+
+</style>
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+```{r old_par, include = FALSE}
+old.par <- par("mfrow", "mai", "pty")
+```
+
+## R version and generation time
+
+```{r R_version, include = TRUE, echo = FALSE}
+out <- version
+cat(
+  "R version:    ", 
+  out$major, ".", 
+  out$minor, 
+  "\n", 
+  "Generated on: ", 
+  format(Sys.time(), "%d-%B-%Y"), 
+  sep = ""
+)
+```
+## Loading the package
+
+```{r load_library}
+library(sifter)
+```

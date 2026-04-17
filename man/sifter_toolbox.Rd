@@ -51,11 +51,27 @@ TODO
 A helper function that automatically calls sifter() function in a loop
 }
 \examples{
-file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
-file_toy_artefacts <- system.file("extdata", "toy_example_artefacts.csv", package = "sifter")
+file_toy <- system.file(
+ "extdata", "toy_example.csv", package = "sifter")
 
-data <- read.csv(file = file_toy, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
-data_artefact <- read.csv(file = file_toy_artefacts, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
+file_toy_artefacts <- system.file(
+  "extdata", "toy_example_artefacts.csv", package = "sifter")
+
+data <- read.csv(
+  file = file_toy,
+  dec = ".",
+  sep = "\t",
+  header = TRUE,
+  stringsAsFactors = TRUE
+)
+
+data_artefact <- read.csv(
+  file = file_toy_artefacts,
+  dec = ".",
+  sep = "\t",
+  header = TRUE,
+  stringsAsFactors = TRUE
+)
 
 sifter_toolbox(
   data_main = data,

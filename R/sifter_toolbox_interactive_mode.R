@@ -14,26 +14,46 @@
 #' @param dir TODO
 #' @param save_2D TODO
 #'
+#' @importFrom grDevices graphics.off dev.off png
+#'
 #' @return TODO
 #' @export
 #'
 #' @examples
 #' if (interactive()) {
-#'   file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
-#'   file_toy_artefacts <- system.file("extdata", "toy_example_artefacts.csv", package = "sifter")
 #'
-#'   data <- read.csv(file = file_toy, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
-#'   data_artefact <- read.csv(file = file_toy_artefacts, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
+#' file_toy <- system.file(
+#'  "extdata", "toy_example.csv", package = "sifter")
 #'
-#'   sifter_toolbox_interactive_mode(
-#'     data_main = data,
-#'     data_art = data_artefact[2,],
-#'     class_col = 5,
-#'     internal_number_col = 6,
-#'     num_of_classes = 2,
-#'     dir = "sifter_results",
-#'     save_2D = FALSE
-#'   )
+#' file_toy_artefacts <- system.file(
+#'   "extdata", "toy_example_artefacts.csv", package = "sifter")
+#'
+#' data <- read.csv(
+#'   file = file_toy,
+#'   dec = ".",
+#'   sep = "\t",
+#'   header = TRUE,
+#'   stringsAsFactors = TRUE
+#' )
+#'
+#' data_artefact <- read.csv(
+#'   file = file_toy_artefacts,
+#'   dec = ".",
+#'   sep = "\t",
+#'   header = TRUE,
+#'   stringsAsFactors = TRUE
+#' )
+#'
+#' sifter_toolbox_interactive_mode(
+#'   data_main = data,
+#'   data_art = data_artefact[2,],
+#'   class_col = 5,
+#'   internal_number_col = 6,
+#'   num_of_classes = 2,
+#'   dir = "sifter_results",
+#'   save_2D = FALSE
+#' )
+#'
 #' }
 #'
 sifter_toolbox_interactive_mode <- function(
@@ -69,9 +89,9 @@ sifter_toolbox_interactive_mode <- function(
       "/artefact_obs_No_",
       art_no,
       "_fig_01",
-      ".jpeg",
+      ".png",
       sep = "")
-    #jpeg(fig_name, width = 1800, height = 1000, pointsize = 18)
+    #png(fig_name, width = 1800, height = 1000, pointsize = 18)
     out <- sifter(
       data_main = data_main,
       data_art = data_art,
@@ -96,9 +116,9 @@ sifter_toolbox_interactive_mode <- function(
         "/artefact_obs_No_",
         art_no,
         "_fig_01_2Dmap",
-        ".jpeg",
+        ".png",
         sep = "")
-      jpeg(fig_name, width = 800, height = 800, pointsize = 18)
+      png(fig_name, width = 800, height = 800, pointsize = 18)
       print(out$cluster_plot)
       dev.off()
     }
@@ -170,9 +190,9 @@ sifter_toolbox_interactive_mode <- function(
       art_no,
       "_fig_",
       formatC(i, width = 2, format = "d", flag = "0"),
-      ".jpeg",
+      ".png",
       sep = "")
-    #jpeg(fig_name, width = 1800, height = 1000, pointsize = 18)
+    #png(fig_name, width = 1800, height = 1000, pointsize = 18)
 
     if (is.null(num_of_classes)) {
       nn <- NULL
@@ -210,9 +230,9 @@ sifter_toolbox_interactive_mode <- function(
         "_fig_",
         formatC(i, width = 2, format = "d", flag = "0"),
         "_2Dmap",
-        ".jpeg",
+        ".png",
         sep = "")
-      jpeg(fig_name, width = 800, height = 800, pointsize = 18)
+      png(fig_name, width = 800, height = 800, pointsize = 18)
       print(out$cluster_plot)
       dev.off()
     }
