@@ -16,8 +16,8 @@ sifter(
   clust_algo = "hc",
   dist_method = "euclidean",
   aggl_method = "ward",
-  plot_2D = FALSE,
-  verbose = FALSE
+  plot_2D = TRUE,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -60,36 +60,36 @@ file_toy_artefacts <- system.file("extdata", "toy_example_artefacts.csv", packag
 data <- read.csv(file = file_toy, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
 data_artefact <- read.csv(file = file_toy_artefacts, dec = ".", sep = "\t", header = T, stringsAsFactors = T)
 
+# Only the required parameters.
+out <- sifter(
+  data_main = data,
+  class_col = 5,
+  internal_number_col = 6
+)
+
+# Specify the number of classes.
 out <- sifter(
   data_main = data,
   class_col = 5,
   internal_number_col = 6,
-  verbose = TRUE
+  num_of_classes = 2
 )
 
+# Specifying the height at which we cut the tree.
 out <- sifter(
   data_main = data,
   class_col = 5,
   internal_number_col = 6,
-  num_of_classes = 2,
-  verbose = TRUE
+  cutting_at_height = 8
 )
 
-out <- sifter(
-  data_main = data,
-  class_col = 5,
-  internal_number_col = 6,
-  cutting_at_height = 8,
-  verbose = TRUE
-)
-
+# Specifying the height at which we cut the tree AND an artefact.
 out <- sifter(
   data_main = data,
   data_art = data_artefact[2,],
   class_col = 5,
   internal_number_col = 6,
-  cutting_at_height = 8,
-  verbose = TRUE
+  cutting_at_height = 8
 )
 
 }

@@ -1,6 +1,5 @@
 #' A wrapper for the sifter_toolbox() function
 #'
-#' @des
 #' @param data_main TODO
 #' @param data_art TODO
 #' @param class_col TODO
