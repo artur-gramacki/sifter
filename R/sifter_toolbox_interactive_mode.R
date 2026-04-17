@@ -1,22 +1,22 @@
 #' A wrapper for the sifter_toolbox() function
 #'
-#' @param data_main TODO
-#' @param data_art TODO
-#' @param class_col TODO
-#' @param internal_number_col TODO
-#' @param num_of_classes TODO
-#' @param class_to_highlight TODO
-#' @param labels_cex TODO
-#' @param mai_bottom TODO
-#' @param clust_algo TODO
-#' @param dist_method TODO
-#' @param aggl_method TODO
-#' @param dir TODO
-#' @param save_2D TODO
+#' @param data_main Same as in \code{sifter()} function.
+#' @param data_art Same as in \code{sifter()} function.
+#' @param class_col Same as in \code{sifter()} function.
+#' @param internal_number_col Same as in \code{sifter()} function.
+#' @param num_of_classes Same as in \code{sifter()} function.
+#' @param class_to_highlight Same as in \code{sifter()} function.
+#' @param labels_cex Same as in \code{sifter()} function.
+#' @param mai_bottom Same as in \code{sifter()} function.
+#' @param clust_algo Same as in \code{sifter()} function.
+#' @param dist_method Same as in \code{sifter()} function.
+#' @param aggl_method Same as in \code{sifter()} function.
+#' @param dir The directory where the results will be saved. If the directory does not exist, it is first created.
+#' @param save_2D Logical. If \code{TRUE}, the 2D cluster plot is saved to disk as a \code{png} file.
 #'
 #' @importFrom grDevices graphics.off dev.off png
 #'
-#' @return TODO
+#' @return
 #' @export
 #'
 #' @examples
@@ -76,6 +76,7 @@ sifter_toolbox_interactive_mode <- function(
 
   if (!dir.exists(dir)) {
     dir.create(dir)
+    message("'", dir, "' ", "direcory was created in the current direcory.")
   }
 
   art_no <- data_art[, internal_number_col]
@@ -98,7 +99,7 @@ sifter_toolbox_interactive_mode <- function(
       class_col = class_col,
       internal_number_col = internal_number_col,
       num_of_classes = num_of_classes,
-      cutting_at_height = cutting_at_height,
+      # cutting_at_height = cutting_at_height, nit implemented yet
       labels_cex = labels_cex,
       mai_bottom = mai_bottom,
       clust_algo = clust_algo,
@@ -135,17 +136,17 @@ sifter_toolbox_interactive_mode <- function(
         ans_step_1 <- "N"
       }
     }
-    if (!is.null(cutting_at_height)) {
-      tree_h <- max(out$hc$height)
-      cat("Step 1, current cutting height: ", cutting_at_height, sep = "")
-      ans <- readline("Do you want enter new value? [y]/[n]? ")
-      if (ans == "Y" | ans == 'y') {
-        ans <- readline("Enter new value (positive number): ")
-        cutting_at_height = as.numeric(ans)
-      } else {
-        ans_step_1 <- "N"
-      }
-    }
+    # if (!is.null(cutting_at_height)) {
+    #   tree_h <- max(out$hc$height)
+    #   cat("Step 1, current cutting height: ", cutting_at_height, sep = "")
+    #   ans <- readline("Do you want enter new value? [y]/[n]? ")
+    #   if (ans == "Y" | ans == 'y') {
+    #     ans <- readline("Enter new value (positive number): ")
+    #     cutting_at_height = as.numeric(ans)
+    #   } else {
+    #     ans_step_1 <- "N"
+    #   }
+    # }
   } # while (ans_step_1 == "Y" | ans_step_1 == 'y')
 
   # First step
@@ -210,7 +211,7 @@ sifter_toolbox_interactive_mode <- function(
       class_col = class_col,
       internal_number_col = internal_number_col,
       num_of_classes = nn,
-      cutting_at_height = cutting_at_height,
+      # cutting_at_height = cutting_at_height,
       labels_cex = labels_cex,
       mai_bottom = mai_bottom,
       clust_algo = clust_algo,
@@ -264,16 +265,16 @@ sifter_toolbox_interactive_mode <- function(
         }
       }
 
-      if (!is.null(cutting_at_height)) {
-        cat("Step ", i, ", current cutting height: ", cutting_at_height, sep = "")
-        ans <- readline("Do you want enter new value? [y]/[n]? ")
-        if (ans == "Y" | ans == 'y') {
-          ans <- readline("Enter new value (positive number): ")
-          cutting_at_height = as.numeric(ans)
-        } else {
-          return("-- It was not possible to obtain a homogeneous group --")
-        }
-      }
+      # if (!is.null(cutting_at_height)) {
+      #   cat("Step ", i, ", current cutting height: ", cutting_at_height, sep = "")
+      #   ans <- readline("Do you want enter new value? [y]/[n]? ")
+      #   if (ans == "Y" | ans == 'y') {
+      #     ans <- readline("Enter new value (positive number): ")
+      #     cutting_at_height = as.numeric(ans)
+      #   } else {
+      #     return("-- It was not possible to obtain a homogeneous group --")
+      #   }
+      # }
     } # if (!out$is_homogenous)
 
   } #  while (!out$is_homogenous)
@@ -291,6 +292,8 @@ sifter_toolbox_interactive_mode <- function(
     quote = FALSE,
     row.names = FALSE,
     sep = ";")
+
+  message("Results are in the '", dir, "' directory.")
 
   return("-- A homogeneous group was obtained --")
 }

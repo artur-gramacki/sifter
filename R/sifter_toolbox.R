@@ -1,17 +1,17 @@
 #' A helper function that automatically calls sifter() function in a loop
 #'
-#' @param data_main TODO
-#' @param data_art TODO
-#' @param class_col TODO
-#' @param internal_number_col TODO
-#' @param num_of_classes TODO
-#' @param labels_cex TODO
-#' @param mai_bottom TODO
-#' @param clust_algo TODO
-#' @param dist_method TODO
-#' @param aggl_method TODO
-#' @param dir TODO
-#' @param save_2D TODO
+#' @param data_main Same as in \code{sifter()} function.
+#' @param data_art Same as in \code{sifter()} function.
+#' @param class_col Same as in \code{sifter()} function.
+#' @param internal_number_col Same as in \code{sifter()} function.
+#' @param num_of_classes Same as in \code{sifter()} function.
+#' @param labels_cex Same as in \code{sifter()} function.
+#' @param mai_bottom Same as in \code{sifter()} function.
+#' @param clust_algo Same as in \code{sifter()} function.
+#' @param dist_method Same as in \code{sifter()} function.
+#' @param aggl_method Same as in \code{sifter()} function.
+#' @param dir The directory where the results will be saved. If the directory does not exist, it is first created.
+#' @param save_2D Logical. If \code{TRUE}, the 2D cluster plot is saved to disk as a \code{png} file.
 #'
 #' @importFrom grDevices graphics.off dev.off png
 #'

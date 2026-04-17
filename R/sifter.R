@@ -2,19 +2,31 @@
 #'
 #' The function generates a series of Agglomerative Hierarchical Clustering (AHC) trees.
 #'
-#' @param data_main TODO
-#' @param data_art TODO
-#' @param class_col TODO
-#' @param internal_number_col TODO
-#' @param num_of_classes TODO
-#' @param cutting_at_height TODO
-#' @param labels_cex TODO
-#' @param mai_bottom TODO
-#' @param clust_algo TODO
-#' @param dist_method TODO
-#' @param aggl_method TODO
-#' @param plot_2D TODO
-#' @param verbose TODO
+#' @param data_main Input data. See \code{"toy_example.csv"} file available through the \code{system.file()} function.
+#'
+#' @param data_art Input data with artefacts. See \code{"toy_example_artefacts.csv"} file available through the \code{system.file()} function.
+#'
+#' @param class_col The column number in the input data that contains the class identifier.
+#'
+#' @param internal_number_col The column number in the input data that contains unique IDs for each record.
+#'
+#' @param num_of_classes The number of classes into which the tree should be divided.
+#'
+#' @param cutting_at_height The height at which the tree is cut.
+#'
+#' @param labels_cex \code{cex} param for tree leaves/
+#'
+#' @param mai_bottom \code{mai} bottom param. Used when leaf labels are long and may not fit entirely in the plot.
+#'
+#' @param clust_algo One of these: \code{"hc"} - the standard hierarchical clustering, \code{"agnes"} - an enhanced agglomerative hierarchical clustering algorithm, \code{"diana"} - a divisive (top-down) hierarchical clustering algorithm.
+#'
+#' @param dist_method One of these: \code{"euclidean"}, \code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"} or \code{"minkowski"}.
+#'
+#' @param aggl_method  For \code{clust_algo == "hc"} - \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"}, \code{"centroid"}.For \code{clust_algo == "agnes"} - \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"weighted"}, \code{"flexible"}, \code{"gaverage"}.
+#'
+#' @param plot_2D If \code{TRUE} 2D cluster plot  will be displayed on the screen.
+#'
+#' @param verbose If \code{TRUE} results will be displayed on the screen (AHC tree and 2D cluster plot).
 #'
 #' @importFrom dendextend labels_colors rect.dendrogram cutree set
 #' @importFrom RColorBrewer brewer.pal
