@@ -43,9 +43,22 @@ sifter_toolbox_interactive_mode(
 
 \item{aggl_method}{Same as in \code{sifter()} function.}
 
-\item{dir}{The directory where the results will be saved. If the directory does not exist, it is first created.}
+\item{dir}{The directory where the results will be saved. If the directory
+does not exist, it is first created.}
 
-\item{save_2D}{Logical. If \code{TRUE}, the 2D cluster plot is saved to disk as a \code{png} file.}
+\item{save_2D}{Logical. If \code{TRUE}, the 2D cluster plot is saved
+to disk as a \code{png} file.}
+}
+\value{
+This function generates identical results to the sifter_toolbox function.
+The difference is that it works interactively, allowing the user to enter
+the number of classes or the height of the tree to be pruned from the keyboard.
+
+The function generates results and saves them to the directory specified
+by the \code{dir} parameter. If the directory doesn't already exist, it is
+created. Images containing the trees created in subsequent steps are
+saved there, until a homogeneous class is achieved. If \code{save_2D == TRUE},
+the 2D clusters constructed for each tree are also saved.
 }
 \description{
 A wrapper for the sifter_toolbox() function
@@ -82,7 +95,7 @@ sifter_toolbox_interactive_mode(
   internal_number_col = 6,
   num_of_classes = 2,
   dir = "sifter_results",
-  save_2D = FALSE
+  save_2D = TRUE
 )
 
 }

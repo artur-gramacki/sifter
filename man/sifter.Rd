@@ -37,18 +37,77 @@ sifter(
 
 \item{mai_bottom}{\code{mai} bottom param. Used when leaf labels are long and may not fit entirely in the plot.}
 
-\item{clust_algo}{One of these: \code{"hc"} - the standard hierarchical clustering, \code{"agnes"} - an enhanced agglomerative hierarchical clustering algorithm, \code{"diana"} - a divisive (top-down) hierarchical clustering algorithm.}
+\item{clust_algo}{One of these:
+\itemize{
+  \item \code{"hc"} - the standard hierarchical clustering
+  \item \code{"agnes"} - an enhanced agglomerative hierarchical clustering algorithm
+  \item \code{"diana"} - a divisive (top-down) hierarchical clustering algorithm
+}}
 
-\item{dist_method}{One of these: \code{"euclidean"}, \code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"} or \code{"minkowski"}.}
+\item{dist_method}{One of these:
+\itemize{
+  \item \code{"euclidean"}
+  \item \code{"maximum"}
+  \item \code{"manhattan"}
+  \item \code{"canberra"}
+  \item \code{"binary"}
+  \code{"minkowski"}
+}}
 
-\item{aggl_method}{For \code{clust_algo == "hc"} - \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"}, \code{"centroid"}.For \code{clust_algo == "agnes"} - \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"weighted"}, \code{"flexible"}, \code{"gaverage"}.}
+\item{aggl_method}{For \code{(clust_algo == "hc")} the acceptable values are:
+ \itemize{
+   \item \code{"ward"}
+   \item \code{"single"}
+   \item \code{"complete"}
+   \item \code{"average"}
+   \item \code{"mcquitty"}
+   \item \code{"median"}
+   \item \code{"centroid"}
+ }
+
+For \code{(clust_algo == "agnes")} the acceptable values are:
+ \itemize{
+   \item \code{"ward"}
+   \item \code{"single"}
+   \item \code{"complete"}
+   \item \code{"average"}
+   \item \code{"weighted"}
+   \item \code{"flexible"}
+   \item \code{"gaverage"}
+ }}
 
 \item{plot_2D}{If \code{TRUE} 2D cluster plot  will be displayed on the screen.}
 
 \item{verbose}{If \code{TRUE} results will be displayed on the screen (AHC tree and 2D cluster plot).}
 }
 \value{
-TODO
+\itemize{
+   \item \code{cluster_plot}: a ggplot object representing the cluster plot is returned
+   if either \code{sum_of_classes} or \code{cutting_at_height} is specified;
+   otherwise, \code{NA} is returned.
+
+   \item \code{dend}: an object of class \code{"dendrogram"} is returned.
+
+   \item \code{hc}: depending on the value of the \code{clust_algo} parameter, the
+         appropriate object is returned (\code{"hclust"}, \code{"agnes"}
+         or \code{"diana"}).
+
+   \item \code{class_col}, \code{internal_number_col}, \code{artefact_row},
+    \code{num_of_classes}, \code{}, \code{}, \code{}, \code{cutting_at_height}:
+    these are the values of variables passed to the function as input.
+
+   \item \code{group_with_artefact} The number of the group in which the artifact
+   is located.
+
+   \item \code{is_homogenous} Returns \code{TRUE} when a homogeneous class has
+   been achieved (as defined by the implemented algorithm).
+
+   \item \code{data_with_artefact} Returns the record with the artefact
+   (the one passed to the function with the \code{data_art} parameter).
+
+   \item \code{artefact_position_in_tree} The artifact's position in the tree,
+   counting leaves from the left.
+ }
 }
 \description{
 The function generates a series of Agglomerative Hierarchical Clustering (AHC) trees.
@@ -86,6 +145,13 @@ out <- sifter(
   internal_number_col = 6
 )
 
+out <- sifter(
+  data_main = data,
+  class_col = 5,
+  internal_number_col = 6,
+  clust_algo = "hc" # c("diana", "agnes", "hc")
+)
+
 # Specify the number of classes.
 out <- sifter(
   data_main = data,
@@ -108,7 +174,7 @@ out <- sifter(
   data_art = data_artefact[2,],
   class_col = 5,
   internal_number_col = 6,
-  cutting_at_height = 8
+  cutting_at_height = 10
 )
 
 # Tree and 2D cluster plot.

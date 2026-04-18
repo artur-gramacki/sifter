@@ -2,13 +2,16 @@
 #'
 #' The function generates a series of Agglomerative Hierarchical Clustering (AHC) trees.
 #'
-#' @param data_main Input data. See \code{"toy_example.csv"} file available through the \code{system.file()} function.
+#' @param data_main Input data. See \code{toy_example.csv} file available through
+#' the \code{system.file()} function.
 #'
-#' @param data_art Input data with artefacts. See \code{"toy_example_artefacts.csv"} file available through the \code{system.file()} function.
+#' @param data_art Input data with artefacts. See \code{toy_example_artefacts.csv}
+#' file available through the \code{system.file()} function.
 #'
 #' @param class_col The column number in the input data that contains the class identifier.
 #'
-#' @param internal_number_col The column number in the input data that contains unique IDs for each record.
+#' @param internal_number_col The column number in the input data that contains unique
+#' IDs for each record.
 #'
 #' @param num_of_classes The number of classes into which the tree should be divided.
 #'
@@ -16,13 +19,48 @@
 #'
 #' @param labels_cex \code{cex} param for tree leaves/
 #'
-#' @param mai_bottom \code{mai} bottom param. Used when leaf labels are long and may not fit entirely in the plot.
+#' @param mai_bottom \code{mai} bottom param. Used when leaf labels are long and may
+#' not fit entirely in the plot.
 #'
-#' @param clust_algo One of these: \code{"hc"} - the standard hierarchical clustering, \code{"agnes"} - an enhanced agglomerative hierarchical clustering algorithm, \code{"diana"} - a divisive (top-down) hierarchical clustering algorithm.
+#' @param clust_algo One of these:
+#'  \itemize{
+#'    \item \code{"hc"} - the standard hierarchical clustering
+#'    \item \code{"agnes"} - an enhanced agglomerative hierarchical clustering algorithm
+#'    \item \code{"diana"} - a divisive (top-down) hierarchical clustering algorithm
+#'  }
 #'
-#' @param dist_method One of these: \code{"euclidean"}, \code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"} or \code{"minkowski"}.
+#' @param dist_method One of these:
+#'  \itemize{
+#'    \item \code{"euclidean"}
+#'    \item \code{"maximum"}
+#'    \item \code{"manhattan"}
+#'    \item \code{"canberra"}
+#'    \item \code{"binary"}
+#'    \code{"minkowski"}
+#'  }
 #'
-#' @param aggl_method  For \code{(clust_algo == "hc")} the acceptable values are: \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"}, \code{"centroid"}.For \code{(clust_algo == "agnes")} the acceptable values are:  \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"weighted"}, \code{"flexible"}, \code{"gaverage"}.
+#' @param aggl_method
+#' For \code{(clust_algo == "hc")} the acceptable values are:
+#'  \itemize{
+#'    \item \code{"ward"}
+#'    \item \code{"single"}
+#'    \item \code{"complete"}
+#'    \item \code{"average"}
+#'    \item \code{"mcquitty"}
+#'    \item \code{"median"}
+#'    \item \code{"centroid"}
+#'  }
+#'
+#' For \code{(clust_algo == "agnes")} the acceptable values are:
+#'  \itemize{
+#'    \item \code{"ward"}
+#'    \item \code{"single"}
+#'    \item \code{"complete"}
+#'    \item \code{"average"}
+#'    \item \code{"weighted"}
+#'    \item \code{"flexible"}
+#'    \item \code{"gaverage"}
+#'  }
 #'
 #' @param plot_2D If \code{TRUE} 2D cluster plot  will be displayed on the screen.
 #'
@@ -38,10 +76,38 @@
 #' @importFrom utils write.table
 #' @importFrom stats dist hclust as.dendrogram order.dendrogram
 #'
-#' @return  TODO
+#' @return
+#'  \itemize{
+#'    \item \code{cluster_plot}: a ggplot object representing the cluster plot is returned
+#'    if either \code{sum_of_classes} or \code{cutting_at_height} is specified;
+#'    otherwise, \code{NA} is returned.
+#'
+#'    \item \code{dend}: an object of class \code{"dendrogram"} is returned.
+#'
+#'    \item \code{hc}: depending on the value of the \code{clust_algo} parameter, the
+#'          appropriate object is returned (\code{"hclust"}, \code{"agnes"}
+#'          or \code{"diana"}).
+#'
+#'    \item \code{class_col}, \code{internal_number_col}, \code{artefact_row}
+#'          \code{num_of_classes}, \code{cutting_at_height}:
+#'     these are the values of variables passed to the function as inputs.
+#'
+#'    \item \code{group_with_artefact} The number of the group in which the artefact
+#'    is located.
+#'
+#'    \item \code{is_homogenous} Returns \code{TRUE} when a homogeneous class has
+#'    been achieved (as defined by the implemented algorithm).
+#'
+#'    \item \code{data_with_artefact} Returns the record with the artefact
+#'    (the one passed to the function with the \code{data_art} parameter).
+#'
+#'    \item \code{artefact_position_in_tree} The artifact's position in the tree,
+#'    counting leaves from the left.
+#'  }
 #' @export
 #'
 #' @examples
+#' # Reading a very simple, small toy dataset.
 #' file_toy <- system.file(
 #'  "extdata", "toy_example.csv", package = "sifter")
 #'
@@ -67,11 +133,20 @@
 #' print(data)
 #' print(data_artefact)
 #'
-#' # Only the required parameters.
+#' # Only the required parameters are given.
 #' out <- sifter(
 #'   data_main = data,
 #'   class_col = 5,
 #'   internal_number_col = 6
+#' )
+#'
+#' # Specifying another clustering algorithm (one of the three
+#' # supported by the function).
+#' out <- sifter(
+#'   data_main = data,
+#'   class_col = 5,
+#'   internal_number_col = 6,
+#'   clust_algo = "agnes" # c("diana", "agnes", "hc")
 #' )
 #'
 #' # Specify the number of classes.
@@ -91,12 +166,13 @@
 #' )
 #'
 #' # Specifying the height at which we cut the tree AND an artefact.
+#' # The class with the artifact is surrounded by a blue frame.
 #' out <- sifter(
 #'   data_main = data,
 #'   data_art = data_artefact[2,],
 #'   class_col = 5,
 #'   internal_number_col = 6,
-#'   cutting_at_height = 8
+#'   cutting_at_height = 10
 #' )
 #'
 #' # Tree and 2D cluster plot.
@@ -165,7 +241,7 @@ sifter <- function(
     stop("Column names in both `data_main` and `data_art` must be identical.")
   }
 
-  cluster_plot <- NA
+  gg_plot <- NA
   data_with_artefact <- NULL
   is_homogenous <- NULL
   group_with_artefact <- NULL
@@ -314,25 +390,28 @@ sifter <- function(
   # step 8 ----
   # 2D visualisation of data
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  if (!is.null(num_of_classes)) {
+  if (!is.null(num_of_classes) || !is.null(cutting_at_height)) {
     sub_grps <- cutree(hc, k = num_of_classes)
 
-    cluster_plot <- fviz_cluster(list(data = data[, -c(class_col, internal_number_col)],
-                                      cluster = sub_grps), geom = "point")
+    gg_temp_1 <- fviz_cluster(list(data = data[, -c(class_col, internal_number_col)],
+                                   cluster = sub_grps), geom = "point")
 
-    xx <- cluster_plot@data$x
-    yy <- cluster_plot@data$y
+    xx <- gg_temp_1@data$x
+    yy <- gg_temp_1@data$y
 
-    cluster_plot <- cluster_plot + geom_text(aes(x = xx, y = yy, label = data[, internal_number_col]),
-                             size = 3, col = "black",  vjust = -0.8) +
-    # highlight artifact (different color and bigger in size)
-    geom_text(x = xx[artefact_row],
-              y = yy[artefact_row],
-              label = data[artefact_row, internal_number_col],
-              size = 3, col = "blue", vjust = -0.8) +
-      geom_point(x = xx[artefact_row],
+    gg_temp_2 <- gg_temp_1 +
+      geom_text(aes(x = xx, y = yy, label = data[, internal_number_col]),
+                size = 3, col = "black",  vjust = -0.8)
+
+        # highlight artifact (different color and bigger in size)
+    gg_plot <- gg_temp_2 +
+      geom_text(x = xx[artefact_row],
                 y = yy[artefact_row],
-                size = 4, col = "blue")
+                label = data[artefact_row, internal_number_col],
+                size = 3, col = "blue", vjust = -0.8) +
+    geom_point(x = xx[artefact_row],
+               y = yy[artefact_row],
+              size = 4, col = "blue")
   }
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -381,11 +460,11 @@ sifter <- function(
       abline(h = cutting_at_height, col = "red", lwd = 2)
     }
 
-    if (!is.null(cluster_plot) & plot_2D == TRUE)  print(cluster_plot)
+    if (!is.null(gg_plot) & plot_2D == TRUE)  print(gg_plot)
   } # if (verbose)
 
   list(
-    cluster_plot = cluster_plot,
+    cluster_plot = gg_plot,
     dend = dend,
     hc = hc,
     class_col = class_col,

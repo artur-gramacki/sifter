@@ -11,17 +11,29 @@
 #' @param clust_algo Same as in \code{sifter()} function.
 #' @param dist_method Same as in \code{sifter()} function.
 #' @param aggl_method Same as in \code{sifter()} function.
-#' @param dir The directory where the results will be saved. If the directory does not exist, it is first created.
-#' @param save_2D Logical. If \code{TRUE}, the 2D cluster plot is saved to disk as a \code{png} file.
+#' @param dir The directory where the results will be saved. If the directory
+#' does not exist, it is first created.
+#' @param save_2D Logical. If \code{TRUE}, the 2D cluster plot is saved
+#' to disk as a \code{png} file.
 #'
 #' @importFrom grDevices graphics.off dev.off png
 #'
 #' @return
+#' This function generates identical results to the sifter_toolbox function.
+#' The difference is that it works interactively, allowing the user to enter
+#' the number of classes or the height of the tree to be pruned from the keyboard.
+#'
+#' The function generates results and saves them to the directory specified
+#' by the \code{dir} parameter. If the directory doesn't already exist, it is
+#' created. Images containing the trees created in subsequent steps are
+#' saved there, until a homogeneous class is achieved. If \code{save_2D == TRUE},
+#' the 2D clusters constructed for each tree are also saved.
 #' @export
 #'
 #' @examples
 #' if (interactive()) {
 #'
+#' # Reading a very simple, small toy dataset.
 #' file_toy <- system.file(
 #'  "extdata", "toy_example.csv", package = "sifter")
 #'
@@ -51,7 +63,7 @@
 #'   internal_number_col = 6,
 #'   num_of_classes = 2,
 #'   dir = "sifter_results",
-#'   save_2D = FALSE
+#'   save_2D = TRUE
 #' )
 #'
 #' }

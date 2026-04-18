@@ -40,12 +40,18 @@ sifter_toolbox(
 
 \item{aggl_method}{Same as in \code{sifter()} function.}
 
-\item{dir}{The directory where the results will be saved. If the directory does not exist, it is first created.}
+\item{dir}{The directory where the results will be saved. If the directory
+does not exist, it is first created.}
 
-\item{save_2D}{Logical. If \code{TRUE}, the 2D cluster plot is saved to disk as a \code{png} file.}
+\item{save_2D}{Logical. If \code{TRUE}, the 2D cluster plot is saved to
+disk as a \code{png} file.}
 }
 \value{
-TODO
+The function generates results and saves them to the directory specified
+by the \code{dir} parameter. If the directory doesn't already exist, it is
+created. Images containing the trees created in subsequent steps are
+saved there, until a homogeneous class is achieved. If \code{save_2D == TRUE},
+the 2D clusters constructed for each tree are also saved.
 }
 \description{
 A helper function that automatically calls sifter() function in a loop
