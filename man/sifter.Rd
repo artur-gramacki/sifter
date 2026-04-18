@@ -21,13 +21,16 @@ sifter(
 )
 }
 \arguments{
-\item{data_main}{Input data. See \code{"toy_example.csv"} file available through the \code{system.file()} function.}
+\item{data_main}{Input data. See \code{toy_example.csv} file available through
+the \code{system.file()} function.}
 
-\item{data_art}{Input data with artefacts. See \code{"toy_example_artefacts.csv"} file available through the \code{system.file()} function.}
+\item{data_art}{Input data with artefacts. See \code{toy_example_artefacts.csv}
+file available through the \code{system.file()} function.}
 
 \item{class_col}{The column number in the input data that contains the class identifier.}
 
-\item{internal_number_col}{The column number in the input data that contains unique IDs for each record.}
+\item{internal_number_col}{The column number in the input data that contains unique
+IDs for each record.}
 
 \item{num_of_classes}{The number of classes into which the tree should be divided.}
 
@@ -35,7 +38,8 @@ sifter(
 
 \item{labels_cex}{\code{cex} param for tree leaves/}
 
-\item{mai_bottom}{\code{mai} bottom param. Used when leaf labels are long and may not fit entirely in the plot.}
+\item{mai_bottom}{\code{mai} bottom param. Used when leaf labels are long and may
+not fit entirely in the plot.}
 
 \item{clust_algo}{One of these:
 \itemize{
@@ -92,11 +96,11 @@ For \code{(clust_algo == "agnes")} the acceptable values are:
          appropriate object is returned (\code{"hclust"}, \code{"agnes"}
          or \code{"diana"}).
 
-   \item \code{class_col}, \code{internal_number_col}, \code{artefact_row},
-    \code{num_of_classes}, \code{}, \code{}, \code{}, \code{cutting_at_height}:
-    these are the values of variables passed to the function as input.
+   \item \code{class_col}, \code{internal_number_col}, \code{artefact_row}
+         \code{num_of_classes}, \code{cutting_at_height}:
+    these are the values of variables passed to the function as inputs.
 
-   \item \code{group_with_artefact} The number of the group in which the artifact
+   \item \code{group_with_artefact} The number of the group in which the artefact
    is located.
 
    \item \code{is_homogenous} Returns \code{TRUE} when a homogeneous class has
@@ -113,6 +117,7 @@ For \code{(clust_algo == "agnes")} the acceptable values are:
 The function generates a series of Agglomerative Hierarchical Clustering (AHC) trees.
 }
 \examples{
+# Reading a very simple, small toy dataset.
 file_toy <- system.file(
  "extdata", "toy_example.csv", package = "sifter")
 
@@ -138,18 +143,20 @@ data_artefact <- read.csv(
 print(data)
 print(data_artefact)
 
-# Only the required parameters.
+# Only the required parameters are given.
 out <- sifter(
   data_main = data,
   class_col = 5,
   internal_number_col = 6
 )
 
+# Specifying another clustering algorithm (one of the three
+# supported by the function).
 out <- sifter(
   data_main = data,
   class_col = 5,
   internal_number_col = 6,
-  clust_algo = "hc" # c("diana", "agnes", "hc")
+  clust_algo = "agnes" # c("diana", "agnes", "hc")
 )
 
 # Specify the number of classes.
@@ -169,6 +176,7 @@ out <- sifter(
 )
 
 # Specifying the height at which we cut the tree AND an artefact.
+# The class with the artifact is surrounded by a blue frame.
 out <- sifter(
   data_main = data,
   data_art = data_artefact[2,],

@@ -66,6 +66,7 @@ A wrapper for the sifter_toolbox() function
 \examples{
 if (interactive()) {
 
+# Reading a very simple, small toy dataset.
 file_toy <- system.file(
  "extdata", "toy_example.csv", package = "sifter")
 
