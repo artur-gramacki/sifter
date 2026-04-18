@@ -92,16 +92,16 @@
 #'          \code{num_of_classes}, \code{cutting_at_height}:
 #'     these are the values of variables passed to the function as inputs.
 #'
-#'    \item \code{group_with_artefact} The number of the group in which the artefact
+#'    \item \code{group_with_artefact}: the number of the group in which the artefact
 #'    is located.
 #'
-#'    \item \code{is_homogenous} Returns \code{TRUE} when a homogeneous class has
+#'    \item \code{is_homogenous}: returns \code{TRUE} when a homogeneous class has
 #'    been achieved (as defined by the implemented algorithm).
 #'
-#'    \item \code{data_with_artefact} Returns the record with the artefact
+#'    \item \code{data_with_artefact}: returns the record with the artefact
 #'    (the one passed to the function with the \code{data_art} parameter).
 #'
-#'    \item \code{artefact_position_in_tree} The artifact's position in the tree,
+#'    \item \code{artefact_position_in_tree}: the artefact's position in the tree,
 #'    counting leaves from the left.
 #'  }
 #' @export
