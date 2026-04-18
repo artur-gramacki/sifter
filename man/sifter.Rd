@@ -150,8 +150,8 @@ out <- sifter(
   internal_number_col = 6
 )
 
-# Specifying another clustering algorithm (one of the three
-# supported by the function).
+# Specifying another clustering algorithm
+# (one of the three supported by the function).
 out <- sifter(
   data_main = data,
   class_col = 5,
