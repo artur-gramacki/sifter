@@ -2,7 +2,7 @@
 % Please edit documentation in R/sifter_toolbox.R
 \name{sifter_toolbox}
 \alias{sifter_toolbox}
-\title{A helper function that automatically calls sifter() function in a loop}
+\title{A helper function that automatically calls \code{sifter()} function in a loop}
 \usage{
 sifter_toolbox(
   data_main,
@@ -54,7 +54,7 @@ saved there, until a homogeneous class is achieved. If \code{save_2D == TRUE},
 the 2D clusters constructed for each tree are also saved.
 }
 \description{
-A helper function that automatically calls sifter() function in a loop
+A helper function that automatically calls \code{sifter()} function in a loop
 }
 \examples{
 if (interactive()) {

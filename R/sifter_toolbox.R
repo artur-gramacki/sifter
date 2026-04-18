@@ -1,4 +1,4 @@
-#' A helper function that automatically calls sifter() function in a loop
+#' A helper function that automatically calls \code{sifter()} function in a loop
 #'
 #' @param data_main Same as in \code{sifter()} function.
 #' @param data_art Same as in \code{sifter()} function.

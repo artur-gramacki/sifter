@@ -2,7 +2,7 @@
 % Please edit documentation in R/sifter_toolbox_interactive_mode.R
 \name{sifter_toolbox_interactive_mode}
 \alias{sifter_toolbox_interactive_mode}
-\title{A wrapper for the sifter_toolbox() function}
+\title{A wrapper for the \code{sifter_toolbox()} function}
 \usage{
 sifter_toolbox_interactive_mode(
   data_main,
@@ -61,7 +61,7 @@ saved there, until a homogeneous class is achieved. If \code{save_2D == TRUE},
 the 2D clusters constructed for each tree are also saved.
 }
 \description{
-A wrapper for the sifter_toolbox() function
+A wrapper for the \code{sifter_toolbox()} function
 }
 \examples{
 if (interactive()) {

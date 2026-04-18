@@ -1,4 +1,4 @@
-#' A wrapper for the sifter_toolbox() function
+#' A wrapper for the \code{sifter_toolbox()} function
 #'
 #' @param data_main Same as in \code{sifter()} function.
 #' @param data_art Same as in \code{sifter()} function.
