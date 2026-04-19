@@ -121,8 +121,6 @@ sifter_toolbox <- function(
     dev.off()
   }
 
-  out$is_homogenous
-
   # First step
   results_step_by_step <-
     matrix(

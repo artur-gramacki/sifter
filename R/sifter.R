@@ -458,7 +458,7 @@ sifter <- function(
       abline(h = cutting_at_height, col = "red", lwd = 2)
     }
 
-    if (!is.null(gg_plot) & plot_2D == TRUE)  print(gg_plot)
+    if (!is.null(gg_plot) && plot_2D == TRUE)  print(gg_plot)
   } # if (verbose)
 
   list(

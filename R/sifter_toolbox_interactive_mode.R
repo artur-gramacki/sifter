@@ -139,7 +139,7 @@ sifter_toolbox_interactive_mode <- function(
     if (!is.null(num_of_classes)) {
       cat("Step 1, current number of classes: ", num_of_classes, sep = "")
       ans1 <- readline("Do you want enter new value? [y]/[n]? ")
-      if (ans1 == "Y" | ans1 == 'y') {
+      if (ans1 == "Y" || ans1 == 'y') {
         ans2 <- readline("Enter new value (positive integer number): ")
         num_of_classes = as.integer(ans2)
       } else {
@@ -150,14 +150,14 @@ sifter_toolbox_interactive_mode <- function(
     #   tree_h <- max(out$hc$height)
     #   cat("Step 1, current cutting height: ", cutting_at_height, sep = "")
     #   ans <- readline("Do you want enter new value? [y]/[n]? ")
-    #   if (ans == "Y" | ans == 'y') {
+    #   if (ans == "Y" || ans == 'y') {
     #     ans <- readline("Enter new value (positive number): ")
     #     cutting_at_height = as.numeric(ans)
     #   } else {
     #     ans_step_1 <- "N"
     #   }
     # }
-  } # while (ans_step_1 == "Y" | ans_step_1 == 'y')
+  } # while (ans_step_1 == "Y" || ans_step_1 == 'y')
 
   # First step
   results_step_by_step <-
@@ -267,7 +267,7 @@ sifter_toolbox_interactive_mode <- function(
       if (!is.null(num_of_classes)) {
         cat("Step ", i, ", current number of classes: ", num_of_classes, sep = "")
         ans <- readline("Do you want enter new value? [y]/[n]? ")
-        if (ans == "Y" | ans == 'y') {
+        if (ans == "Y" || ans == 'y') {
           ans <- readline("Enter new value (positive integer number): ")
           num_of_classes = as.integer(ans)
         } else {
@@ -278,7 +278,7 @@ sifter_toolbox_interactive_mode <- function(
       # if (!is.null(cutting_at_height)) {
       #   cat("Step ", i, ", current cutting height: ", cutting_at_height, sep = "")
       #   ans <- readline("Do you want enter new value? [y]/[n]? ")
-      #   if (ans == "Y" | ans == 'y') {
+      #   if (ans == "Y" || ans == 'y') {
       #     ans <- readline("Enter new value (positive number): ")
       #     cutting_at_height = as.numeric(ans)
       #   } else {
