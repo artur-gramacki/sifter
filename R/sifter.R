@@ -17,9 +17,9 @@
 #'
 #' @param cutting_at_height The height at which the tree is cut.
 #'
-#' @param labels_cex \code{cex} param for tree leaves/
+#' @param labels_cex \code{cex} parameter for tree leaves.
 #'
-#' @param mai_bottom \code{mai} bottom param. Used when leaf labels are long and may
+#' @param mai_bottom \code{mai} bottom parameter. Used when leaf labels are long and may
 #' not fit entirely in the plot.
 #'
 #' @param clust_algo One of these:
@@ -36,7 +36,7 @@
 #'    \item \code{"manhattan"}
 #'    \item \code{"canberra"}
 #'    \item \code{"binary"}
-#'    \code{"minkowski"}
+#'    \item \code{"minkowski"}
 #'  }
 #'
 #' @param aggl_method
@@ -199,9 +199,7 @@ sifter <- function(
     dist_method = "euclidean",
     aggl_method = "ward",
     plot_2D = FALSE,
-    verbose = TRUE
-)
-{
+    verbose = TRUE) {
 
   # All columns outside the range c(1:internal_number_col) are ignored.
   data_main <- data_main[, c(1:internal_number_col)]

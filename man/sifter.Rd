@@ -36,9 +36,9 @@ IDs for each record.}
 
 \item{cutting_at_height}{The height at which the tree is cut.}
 
-\item{labels_cex}{\code{cex} param for tree leaves/}
+\item{labels_cex}{\code{cex} parameter for tree leaves.}
 
-\item{mai_bottom}{\code{mai} bottom param. Used when leaf labels are long and may
+\item{mai_bottom}{\code{mai} bottom parameter. Used when leaf labels are long and may
 not fit entirely in the plot.}
 
 \item{clust_algo}{One of these:
@@ -55,7 +55,7 @@ not fit entirely in the plot.}
   \item \code{"manhattan"}
   \item \code{"canberra"}
   \item \code{"binary"}
-  \code{"minkowski"}
+  \item \code{"minkowski"}
 }}
 
 \item{aggl_method}{For \code{(clust_algo == "hc")} the acceptable values are:

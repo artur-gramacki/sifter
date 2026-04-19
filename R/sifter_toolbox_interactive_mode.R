@@ -82,9 +82,7 @@ sifter_toolbox_interactive_mode <- function(
     dist_method = "euclidean",
     aggl_method = "ward",
     dir = "figs_sifter",
-    save_2D = FALSE
-)
-{
+    save_2D = FALSE) {
 
   if (!dir.exists(dir)) {
     dir.create(dir)
