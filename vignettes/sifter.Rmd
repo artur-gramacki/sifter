@@ -7,7 +7,7 @@ output:
     number_sections: true  
     fig_caption: true
 vignette: >
-  %\VignetteIndexEntry{Introduction to `sift` package}
+  %\VignetteIndexEntry{Introduction to `siftr` package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -30,9 +30,6 @@ h1, h2, h3, h4 {
 
 </style>
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
-```
 
 ```{r old_par, include = FALSE}
 old.par <- par("mfrow", "mai", "pty")
@@ -57,3 +54,221 @@ cat(
 ```{r load_library}
 library(sifter)
 ```
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+## Presentation of the package
+
+We will demonstrate the operation of this toolbox on an artificial and very small dataset. This will make it easier for the reader to understand how it works. Then we will run analogous examples using the target dataset.
+
+### Data format
+
+This section explains the required data format and  can be helpful when you want to prepare your own dataset for your own analysis. The following rules must be observed:
+
+* the input data must be a data frame,
+* the first `n` columns contain the data to be analysed,
+* the `n + 1` column contains the class identifier,
+* the `n + 2` column contains the unique ID of individual records,
+* the rest of columns is not analysed and can contain any data (but our sample data does not contain any additional data),
+* the subsequent columns must be separated by tab characters. 
+
+The demonstration is based on two toy datasets where `n = 4`. The first contains training data, the second contains artefact observations to be analysed. To begin with, let us load two datasets into R. 
+
+```{r results = "hide"}
+# Reading a very simple, small toy dataset.
+file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
+file_toy_artefacts <- system.file("extdata", "toy_example_artefacts.csv", package = "sifter")
+
+data <- read.csv(
+  file = file_toy, dec = ".", sep = "\t", header = TRUE, stringsAsFactors = TRUE
+)
+
+data_artefact <- read.csv(
+  file = file_toy_artefacts, dec = ".", sep = "\t", header = TRUE, stringsAsFactors = TRUE
+)
+```
+
+```{r echo = FALSE}
+print(data, row.names = FALSE)
+```
+
+```{r echo = FALSE}
+print(data_artefact, row.names = FALSE)
+```
+
+[Back to top](#top) 
+
+### Demonstration 
+
+After loading all required functions we can start demonstrating the capabilities of the toolbox. To begin with, we call the function in its simplest form. We will get a tree as a result. Elements from each class are in a different colour. The `mai_bottom` parameter controls the amount of free space at the bottom of the drawing. When class names are long, it is worth setting a larger value (you need to test it practically).
+
+
+```{r include = TRUE, echo = FALSE, fig.width = 5, fig.height = 5, fig.align = 'center'}
+out <- sifter(
+  data_main = data, 
+  class_col = 5, 
+  internal_number_col = 6,
+  mai_bottom = 0.8
+)
+```
+
+The next demonstration draws rectangles around the branches of a dendrogram highlighting the corresponding clusters. First the dendrogram is cut at a certain level (according to the input parameter `num_of_classes`), then rectangles are drawn around selected branches. 
+
+```{r include = TRUE, echo = FALSE, fig.width = 5, fig.height = 5, fig.align = 'center'}
+out <- sifter(
+  data_main = data, 
+  class_col = 5, 
+  internal_number_col = 6,
+  num_of_classes = 3,
+  mai_bottom = 0.8,
+) 
+```
+
+In this example the dataset with artefact observations is used. The effect of calling the function is similar to the previous one. This time, however, the class where the artefact observation is located is surrounded by a blue rectangle. The artefact observation name is displayed in slightly larger black font.
+
+```{r include = TRUE, echo = FALSE, fig.width = 5, fig.height = 5, fig.align = 'center'}
+out <- sifter(
+  data_main = data, 
+  data_art = data_artefact[2,],
+  class_col = 5, 
+  num_of_classes = 3,
+  internal_number_col = 6,
+  mai_bottom = 1
+) 
+```
+
+In the last example the dendrogram is cut at a certain **height** of the tree (parameter `cutting_at_height` is used here). A red horizontal line is drawn at the specified value (9 in this example) and the relevant number of rectangles is drawn (3 in this example).
+
+```{r include = TRUE, echo = FALSE, fig.width = 5, fig.height = 5, fig.align = 'center'}
+out <- sifter(
+  data_main = data, 
+  class_col = 5, 
+  internal_number_col = 6,
+  cutting_at_height = 9,
+  mai_bottom = 0.8) 
+```
+
+[Back to top](#top) 
+
+## Running the `sifter()` function in a loop    
+
+
+The `sifter()` function can either separate production areas only (as demonstrated above), or to propose provenance hypotheses, if artefact data is available. This solution makes it possible to determine the origin of an unknown artefact based on the analysis of its occurrence in a series of successively built smaller dendrograms. In order to analyse artefact data, the treatment is to be conducted in several steps. In the first step, a class with one observation for artefact data and observations for production area data is selected. This class is used in the next step, and the procedure is repeated until a class solely containing the artefact observation and data on only one production area is obtained. 
+
+```{r include = TRUE, echo = FALSE, fig.width = 7, fig.height = 7, fig.align = 'center'}
+par(mfrow = c(2,2), pty = "m")
+par(mai = c(0.1, 0, 0, 0))
+
+# -------
+# Step 1
+#--------
+# The first dendrogram is generated. The class where the artefact 
+# observation is located is surrounded by a blue rectangle
+out <- sifter(
+  data_main = data, 
+  data_art = data_artefact[2,],
+  class_col = 5, 
+  num_of_classes = 2,
+  internal_number_col = 6,
+  mai_bottom = 0.8) 
+
+# -------
+# Step 2
+# -------
+# Now, the data from the blue rectangle from Step 1 become inputs 
+# to the sifter() function. And again, The class where the artefact 
+# observation is located is surrounded by a blue rectangle.
+# The artefact Observation is still in a heterogeneous class, so another 
+# step is required,
+r <- which(rownames(out$data_with_artefact) == out$artefact_row)
+data_2 <- out$data_with_artefact[-r, ]
+data_artefact_2 <- out$data_with_artefact[r, ]
+out <- sifter(
+  data_main = data_2, 
+  data_art = data_artefact_2, 
+  class_col = 5, 
+  internal_number_col = 6,
+  num_of_classes = 2,
+  mai_bottom = 0.8
+) 
+
+# -------
+# Step 3
+# -------
+# After completing the next step, the artefact observation is still in a 
+# heterogeneous class, so another step is required.
+r <- which(rownames(out$data_with_artefact) == out$artefact_row)
+data_2 <- out$data_with_artefact[-r, ]
+data_artefact_2 <- out$data_with_artefact[r, ]
+out <- sifter(
+  data_main = data_2, 
+  data_art = data_artefact_2, 
+  class_col = 5, 
+  internal_number_col = 6,
+  num_of_classes = 2,
+  mai_bottom = 0.8
+) 
+
+# -------
+# Step 4
+# -------
+# The fourth step ends up in a homogenous class which ends the analysis.
+r <- which(rownames(out$data_with_artefact) == out$artefact_row)
+data_2 <- out$data_with_artefact[-r, ]
+data_artefact_2 <- out$data_with_artefact[r, ]
+out <- sifter(
+  data_main = data_2, 
+  data_art = data_artefact_2, 
+  class_col = 5, 
+  internal_number_col = 6,
+  num_of_classes = 2,
+  mai_bottom = 0.8
+) 
+```
+
+Finally, we can confirm that the in the last step the homonogeus class is returned.
+
+```{r echo = TRUE, results = "hide"}
+out$is_homogenous
+```
+
+[Back to top](#top) 
+
+## using the `sifter_toolbox()` function 
+
+All the above steps can be enclosed inside an another function `sifter_toolbox()` and the 4 above steps can now be run subsequently. As a result, four `png` files are created in the  directory defined by the `dir` parameter. In addition, a text file is created where detailed results from every step are saved.
+
+```{r}
+sifter_toolbox(
+  data_main = data,
+  data_art = data_artefact[2,],
+  class_col = 5,
+  internal_number_col = 6,
+  num_of_classes = 2,
+  dir = "sifter_results"
+)
+```
+
+
+```{r echo = FALSE}
+files <- list.files(path = "sifter_results",  pattern = "artefact_obs_No_200")
+for( i in 1:length(files)){
+  cat(files[i], "\n")
+}
+```
+
+```{r echo = FALSE}
+read.delim("sifter_results/artefact_obs_No_200_results_step_by_step.csv", sep = ";")
+```
+
+[Back to top](#top) 
+
+## Using the `sifter_toolbox_interactive_mode()` function 
+
+We cannot demonstrate this feature in this vignette because it operates in interactive mode and requires the user to provide the required parameter values.
+
+This function generates identical results to the sifter_toolbox function. The difference is that it works interactively, allowing the user to enter the number of classes or the height of the tree to be pruned from the keyboard.
+
+The function generates results and saves them to the directory specified by the `dir` parameter. If the directory doesn't already exist, it is created. Images containing the trees created in subsequent steps are saved there, until a homogeneous class is achieved. If `save_2D == TRUE`, the 2D clusters constructed for each tree are also saved.
