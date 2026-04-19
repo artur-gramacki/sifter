@@ -82,19 +82,15 @@ file_toy <- system.file("extdata", "toy_example.csv", package = "sifter")
 file_toy_artefacts <- system.file("extdata", "toy_example_artefacts.csv", package = "sifter")
 
 data <- read.csv(
-  file = file_toy, dec = ".", sep = "\t", header = TRUE, stringsAsFactors = TRUE
-)
+  file = file_toy, dec = ".", sep = "\t", header = TRUE, stringsAsFactors = TRUE)
 
 data_artefact <- read.csv(
-  file = file_toy_artefacts, dec = ".", sep = "\t", header = TRUE, stringsAsFactors = TRUE
-)
+  file = file_toy_artefacts, dec = ".", sep = "\t", header = TRUE, stringsAsFactors = TRUE)
 ```
 
-```{r echo = FALSE}
+```{r echo = TRUE}
 print(data, row.names = FALSE)
-```
 
-```{r echo = FALSE}
 print(data_artefact, row.names = FALSE)
 ```
 
@@ -105,7 +101,7 @@ print(data_artefact, row.names = FALSE)
 After loading all required functions we can start demonstrating the capabilities of the toolbox. To begin with, we call the function in its simplest form. We will get a tree as a result. Elements from each class are in a different colour. The `mai_bottom` parameter controls the amount of free space at the bottom of the drawing. When class names are long, it is worth setting a larger value (you need to test it practically).
 
 
-```{r include = TRUE, echo = FALSE, fig.width = 5, fig.height = 5, fig.align = 'center'}
+```{r include = TRUE, echo = TRUE, fig.width = 6, fig.height = 5, fig.align = 'center'}
 out <- sifter(
   data_main = data, 
   class_col = 5, 
@@ -116,7 +112,7 @@ out <- sifter(
 
 The next demonstration draws rectangles around the branches of a dendrogram highlighting the corresponding clusters. First the dendrogram is cut at a certain level (according to the input parameter `num_of_classes`), then rectangles are drawn around selected branches. 
 
-```{r include = TRUE, echo = FALSE, fig.width = 5, fig.height = 5, fig.align = 'center'}
+```{r include = TRUE, echo = TRUE, fig.width = 6, fig.height = 5, fig.align = 'center'}
 out <- sifter(
   data_main = data, 
   class_col = 5, 
@@ -128,7 +124,7 @@ out <- sifter(
 
 In this example the dataset with artefact observations is used. The effect of calling the function is similar to the previous one. This time, however, the class where the artefact observation is located is surrounded by a blue rectangle. The artefact observation name is displayed in slightly larger black font.
 
-```{r include = TRUE, echo = FALSE, fig.width = 5, fig.height = 5, fig.align = 'center'}
+```{r include = TRUE, echo = TRUE, fig.width = 6, fig.height = 5, fig.align = 'center'}
 out <- sifter(
   data_main = data, 
   data_art = data_artefact[2,],
@@ -139,9 +135,9 @@ out <- sifter(
 ) 
 ```
 
-In the last example the dendrogram is cut at a certain **height** of the tree (parameter `cutting_at_height` is used here). A red horizontal line is drawn at the specified value (9 in this example) and the relevant number of rectangles is drawn (3 in this example).
+In the last example the dendrogram is cut at a certain height of the tree (parameter `cutting_at_height` is used here). A red horizontal line is drawn at the specified value (9 in this example) and the relevant number of rectangles is drawn (3 in this example).
 
-```{r include = TRUE, echo = FALSE, fig.width = 5, fig.height = 5, fig.align = 'center'}
+```{r include = TRUE, echo = TRUE, fig.width = 6, fig.height = 5, fig.align = 'center'}
 out <- sifter(
   data_main = data, 
   class_col = 5, 
@@ -157,7 +153,7 @@ out <- sifter(
 
 The `sifter()` function can either separate production areas only (as demonstrated above), or to propose provenance hypotheses, if artefact data is available. This solution makes it possible to determine the origin of an unknown artefact based on the analysis of its occurrence in a series of successively built smaller dendrograms. In order to analyse artefact data, the treatment is to be conducted in several steps. In the first step, a class with one observation for artefact data and observations for production area data is selected. This class is used in the next step, and the procedure is repeated until a class solely containing the artefact observation and data on only one production area is obtained. 
 
-```{r include = TRUE, echo = FALSE, fig.width = 7, fig.height = 7, fig.align = 'center'}
+```{r include = TRUE, echo = TRUE, fig.width = 7, fig.height = 7, fig.align = 'center'}
 par(mfrow = c(2,2), pty = "m")
 par(mai = c(0.1, 0, 0, 0))
 
@@ -252,14 +248,14 @@ sifter_toolbox(
 ```
 
 
-```{r echo = FALSE}
+```{r echo = TRUE}
 files <- list.files(path = "sifter_results",  pattern = "artefact_obs_No_200")
 for( i in 1:length(files)){
   cat(files[i], "\n")
 }
 ```
 
-```{r echo = FALSE}
+```{r echo = TRUE}
 read.delim("sifter_results/artefact_obs_No_200_results_step_by_step.csv", sep = ";")
 ```
 
